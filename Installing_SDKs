@@ -17,4 +17,21 @@ const circle = new Circle(
   "<your-api-key>",
   CircleEnvironments.sandbox, // API base url
 );
+import com.circle.client.ApiException;
+import com.circle.client.api.BalancesApi;
+import com.circle.client.model.ListBalancesResponse;
+
+
+// Create API driver
+BalancesApi api = new BalancesApi();
+
+// Send request
+try {
+  ListBalancesResponse resp = api.listBalances();
+  System.out.println(resp);
+}
+catch (ApiException e) {
+  System.out.println("Failed to fetch balances");
+  System.out.println(e);
+}
 
