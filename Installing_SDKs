@@ -34,4 +34,18 @@ catch (ApiException e) {
   System.out.println("Failed to fetch balances");
   System.out.println(e);
 }
+import circle
+from circle.apis.tags import balances_api
+
+# Choose API driver
+api_instance = balances_api.BalancesApi()
+
+# Send request
+try:
+    api_response = api_instance.list_balances()
+    pprint(api_response)
+except circle.ApiException as e:
+    print("Exception when calling BalancesApi->list_balances: %s\n" % e)
+
+
 
