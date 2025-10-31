@@ -34,6 +34,7 @@ catch (ApiException e) {
   System.out.println("Failed to fetch balances");
   System.out.println(e);
 }
+
 import circle
 from circle.apis.tags import balances_api
 
@@ -63,6 +64,7 @@ async function createCryptoPayment() {
         },
       ],
     });
+}
 }
 
 
