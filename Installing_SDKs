@@ -1,0 +1,12 @@
+npm install @circle-fin/circle-sdk --save
+# or
+yarn add @circle-fin/circle-sdk
+
+//Add the following dependency to your pom.xml. Make sure to specify the version of the artifact.
+<dependency>
+    <groupId>com.circle</groupId>
+    <artifactId>circle</artifactId>
+    <version>replace-me-with-latest-artifact-ver</version>
+</dependency>
+
+python3 -m pip install circle-sdk
