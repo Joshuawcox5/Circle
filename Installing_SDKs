@@ -10,3 +10,11 @@ yarn add @circle-fin/circle-sdk
 </dependency>
 
 python3 -m pip install circle-sdk
+
+import { Circle, CircleEnvironments } from "@circle-fin/circle-sdk";
+
+const circle = new Circle(
+  "<your-api-key>",
+  CircleEnvironments.sandbox, // API base url
+);
+
