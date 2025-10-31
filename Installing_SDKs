@@ -67,6 +67,109 @@ async function createCryptoPayment() {
 }
 }
 
+import com.circle.client.ApiException;
+import com.circle.client.Circle;
+import com.circle.client.api.CryptoPaymentIntentsApi;
+import com.circle.client.model.Chain;
+import com.circle.client.model.CreatePaymentIntentRequest;
+import com.circle.client.model.CreatePaymentIntentResponse;
+import com.circle.client.model.CryptoPaymentsMoney;
+import com.circle.client.model.PaymentIntentCreationRequest;
+import com.circle.client.model.PaymentMethodBlockchain;
+
+
+import java.util.Arrays;
+import java.util.UUID;
+
+
+
+// Create API driver
+CryptoPaymentIntentsApi api = new CryptoPaymentIntentsApi();
+
+// Prepare request data
+CreatePaymentIntentRequest reqBody = new CreatePaymentIntentRequest(new PaymentIntentCreationRequest()
+    .idempotencyKey(UUID.randomUUID())
+    .amount(
+        new CryptoPaymentsMoney()
+        .amount("45.19")
+        .currency(CryptoPaymentsMoney.CurrencyEnum.USD)
+    )
+    .settlementCurrency(PaymentIntentCreationRequest.SettlementCurrencyEnum.USD)
+    .paymentMethods(
+        Arrays.asList(
+            new PaymentMethodBlockchain()
+            .chain(Chain.ETH)
+            .type(PaymentMethodBlockchain.TypeEnum.BLOCKCHAIN)
+        )
+    ));
+
+// Make API request and print response
+try {
+    CreatePaymentIntentResponse resp = api.createPaymentIntent(reqBody);
+    System.out.println(resp);
+    // Print error if API request failed
+} catch (ApiException e) {
+    System.out.println("Failed to make API call");
+    System.out.println(e);
+}
+from uuid import uuid4
+import circle
+from circle.apis.tags import crypto_payment_intents_api
+from circle.model.create_payment_intent_request import CreatePaymentIntentRequest
+from circle.model.crypto_payments_money import CryptoPaymentsMoney
+from circle.model.currency import Currency
+from circle.model.payment_method_blockchain import PaymentMethodBlockchain
+from circle.model.chain import Chain
+
+# Configure global settings
+circle.base_url = circle.Environment.SANDBOX_BASE_URL
+circle.api_key = '<replace-me-with-your-api-key>'
+
+# Choose API driver
+api_instance = crypto_payment_intents_api.CreatePaymentIntent()
+
+# body param
+req_body = CreatePaymentIntentRequest(amount=CryptoPaymentsMoney(amount='35.14',currency=Currency.USD),idempotencyKey=str(uuid4()),settlementCurrency=Currency.USD,paymentMethods=[PaymentMethodBlockchain(chain=Chain.ETH,type="blockchain")])
+
+
+try:
+    api_response = api_instance.create_payment_intent(body=req_body)
+    print(api_response)
+except circle.ApiException as ex:
+        print("Exception when calling payment_intents_api->create_payment_intent: %s\n" % ex)
+
+async function getCryptoPayment(id: string) {
+  const cryptoPayment = await circle.paymentIntents.getPaymentIntent(id);
+}
+import com.circle.client.ApiException;
+import com.circle.client.api.CryptoPaymentIntentsApi;
+import com.circle.client.model.PaymentIntent;
+
+CryptoPaymentIntentsApi api = new CryptoPaymentIntentsApi();
+UUID paymentIntetntId = replace_with_payment_intent_id;
+// Send request
+try {
+  PaymentIntent resp = api.getPaymentIntent(id);
+  System.out.println(resp);
+}
+catch (ApiException e) {
+  System.out.println("Failed to fetch payment intent");
+  System.out.println(e);
+}
+
+import circle
+from circle.apis.tags import payment_intents_api
+
+api_instance = payment_intents_api.PaymentIntentsApi()
+
+payment_intent_id = replace_with_payment_intent_id
+
+# Send request
+try:
+    api_response = api_instance.get_payment_intent(path_params={'id':payment_intent_id})
+    pprint(api_response)
+except circle.ApiException as e:
+    print("Exception when calling PaymentIntentsApi->get_payment_intent: %s\n" % e)
 
 
 
