@@ -47,5 +47,24 @@ try:
 except circle.ApiException as e:
     print("Exception when calling BalancesApi->list_balances: %s\n" % e)
 
+async function createCryptoPayment() {
+  const createCryptoPaymentRes =
+    await circle.paymentIntents.createPaymentIntent({
+      idempotencyKey: "5c6e9b91-6563-47ec-8c6d-0ce1103c50b3",
+      amount: {
+        amount: "3.14",
+        currency: "USD",
+      },
+      settlementCurrency: "USD",
+      paymentMethods: [
+        {
+          chain: "ETH",
+          type: "blockchain",
+        },
+      ],
+    });
+}
+
+
 
 
